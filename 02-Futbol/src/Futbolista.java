@@ -19,8 +19,24 @@ public class Futbolista extends Thread {
             ntirades++;
         }
     }
-    public static void main(String[] args) {
-        String[] jogadors ["Messi", "Cristiano Ronaldo", "Lewandowski", "Lamine Yamal", "Harry Kane", "Mbappe","Raphinha", "Haaland", "Dembele","Neimar", "David suazo"];
-        
+    public static void main(String[] args) throws InterruptedException {
+        String[] noms = {"Messi", "Cristiano Ronaldo", "Lewandowski", "Lamine Yamal", "Harry Kane", "Mbappe","Raphinha", "Haaland", "Dembele","Neymar", "David suazo"};
+        Futbolista[] jugadors = new Futbolista[NUM_JUGADORS];
+
+        for (int i = 0; i < NUM_JUGADORS; i++) {
+            jugadors[i] = new Futbolista(noms[i]);
+        }
+        System.out.println("Inici dels xuts --------------------");
+        for (Futbolista j : jugadors) {
+           j.start();
+        }
+        for (Futbolista k : jugadors) {
+            k.join();
+        }
+        System.out.println("Fi dels xuts -----------------------");
+        System.out.println("--- Estadístiques ------");
+        for (Futbolista f : jugadors) {
+        System.out.printf("%-18s -> %2d gols%n", f.getName(), f.ngols);
+        }
     }
 }
